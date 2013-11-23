@@ -1,0 +1,83 @@
+package com.example.todolistapp;
+
+import config.DataBaseConfig;
+import util.DataBaseOpenHelper;
+import android.app.Activity;
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
+import android.widget.TextView;
+
+/**
+ * ToDo詳細画面
+ * @author y.kanda
+ */
+public class ToDoDetailsActivity extends Activity {
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState){
+		super.onCreate(savedInstanceState);
+		
+		//画面にセットする文字列を一時格納する用
+		String todoTitleStr = "";
+		String todoContentStr = "";
+		String limitDateStr = "";
+		String progressStr = "";
+		
+		//ToDoSELECT詳細結果格納
+		Cursor cursor = null;
+		
+		//ToDo詳細のviewをセット
+		setContentView(R.layout.activity_todo_details);
+		
+		//画面オブジェクト(?)取得
+		TextView todoTitle = (TextView) findViewById(R.id.todo_details);
+		TextView todoContent = (TextView) findViewById(R.id.todo_content_details);
+		TextView limitDate = (TextView) findViewById(R.id.limit_date_details);
+		TextView progress = (TextView) findViewById(R.id.progress_details);
+		
+		//詳細を表示するToDoのIDを取得する。(一覧画面で選択したToDo)
+		Intent intent = getIntent();
+		String[] todo_id = { intent.getStringExtra(DataBaseConfig.CLM_TODO_ID) };
+		
+		try{
+			//データベースにアクセスしたいのでオープン
+			DataBaseOpenHelper dbHelper = new DataBaseOpenHelper(this);
+			SQLiteDatabase db = dbHelper.getReadableDatabase();
+			
+			//Listから選択したToDoをidを元に引っ張ってくる
+			cursor = db.rawQuery(DataBaseConfig.SQL_SELECT_DETAILS , todo_id);
+			cursor.moveToFirst();
+			
+			//選択結果get
+			todoTitleStr = cursor.getString(2);
+			todoContentStr = cursor.getString(3);
+			limitDateStr = cursor.getString(5);
+			progressStr = cursor.getString(4);
+			
+		}
+		catch(SQLException e){
+			todoTitleStr = "AppError！";
+			todoContentStr = e.getMessage();
+		}
+		finally{
+			try {
+				if (cursor != null){
+					//メモリを圧迫する為、必ずclose
+					cursor.close();
+				}
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		//画面に値渡し
+		todoTitle.setText(todoTitleStr);
+		todoContent.setText(todoContentStr);
+		limitDate.setText(limitDateStr);
+		progress.setText(progressStr);
+	}
+}

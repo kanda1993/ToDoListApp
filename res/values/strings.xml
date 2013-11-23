@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ToDoListApp</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="mainMenu_title">メインメニュー</string>
+    <string name="createToDoButton">新規ToDo作成</string>
+    <string name="todoList_title">ToDoリスト</string>
+    <string name="completeList_title">完了ToDoリスト</string>
+    <string name="exitButton">終了ボタン</string>
+    <string name="todo_title">ToDo</string>
+    <string name="limit_date_title">期限</string>
+    <string name="todo_content_title">内容</string>
+    <string name="progress_title">進捗率</string>
+    <string name="pj_title">プロジェクト名</string>
+
+</resources>
