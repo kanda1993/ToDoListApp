@@ -11,7 +11,7 @@ import android.view.View;
  * メニュー
  * ToDoリストへ遷移
  * 新規ToDoリスト作成へ遷移
- * 完了ToDoリストへ遷移
+ *　PJマスタへ遷移
  * App終了ボタン
  * @author y.kanda
  */

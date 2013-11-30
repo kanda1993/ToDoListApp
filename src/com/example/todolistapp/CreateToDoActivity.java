@@ -45,17 +45,18 @@ public class CreateToDoActivity extends Activity {
 		//結果表示ダイアログ内容切り替え用
 		Boolean successCreateFlg = false;
 		
-		//画面から入力値を取得
-		String todoTitle = ConvertEditTextToString(R.id.todo);
-		String todo = ConvertEditTextToString(R.id.todo_content);
-		String limitDate = ConvertDatePickerToString(R.id.limit_date);
-		
 		//データベースにアクセスしたいのでオープン
 		DataBaseOpenHelper dbHelper = new DataBaseOpenHelper(this);
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
 		
 		//insertデータの作成
 		ContentValues values = new ContentValues();
+		
+		//画面から入力値を取得
+		String todoTitle = ConvertEditTextToString(R.id.todo);
+		String todo = ConvertEditTextToString(R.id.todo_content);
+		String limitDate = ConvertDatePickerToString(R.id.limit_date);
+		
 		//新規ToDoIdを振番
 		values.put(DataBaseConfig.CLM_TODO_ID, createToDoId(db));
 		//TODO PJマスタを未実装な為、強制的に0にしている。0は未分類にする。
@@ -145,7 +146,10 @@ public class CreateToDoActivity extends Activity {
 		return todo_id;
 	}
 	
-	
+	/**
+	 * 作成結果ダイアログを表示する。
+	 * @param successCreateFlg　作成が成功したか。
+	 */
 	public void showResultDialog(Boolean successCreateFlg){
 		
 		//結果表示ダイアログ用に取得
