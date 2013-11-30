@@ -20,8 +20,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 /**
- * ToDoList‚ğ•\¦‚·‚éB
- * 
+ * ToDoä¸€è¦§ç”»é¢
  * @author y.kanda
  */
 public class ToDoListActivity extends ListActivity {
@@ -32,18 +31,20 @@ public class ToDoListActivity extends ListActivity {
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		
-		//ƒf[ƒ^ƒx[ƒX‚ÉƒAƒNƒZƒX‚µ‚½‚¢‚Ì‚ÅƒI[ƒvƒ“
+		//ã‚ªãƒ¼ãƒ—ãƒ³
 		DataBaseOpenHelper dbHelper = new DataBaseOpenHelper(this);
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
 		
-		//ToDoƒŠƒXƒg‚ğˆø‚Á’£‚é
+		//ToDoå…¨å–å¾—
 		String SqlToDoAllSelect = "SELECT * FROM todo_table";
 		Cursor cursor = db.rawQuery(SqlToDoAllSelect, null);
 		
-		//ToDoî•ñ‚ğŠi”[‚·‚éB
+		 //ToDoæƒ…å ±ã‚’æ ¼ç´ã™ã‚‹
 		todoList = new ArrayList<Map<String, String>>(); 
-		//ƒJ[ƒ\ƒ‹‚Ì‰‚ß‚©‚çI—¹‚Ü‚Å‚ÌToDoƒŠƒXƒg‚ğæ“¾‚·‚éB
-		//while(cursor)‚É‚µ‚È‚¢‚Ì‚ÍÅ‰‚ÌƒŒƒR[ƒh‚ğ–³‹‚³‚ê‚È‚¢‚æ‚¤‚É‚·‚é‚½‚ß
+		//å–å¾—ToDoã®æ ¼ç´
+		//ã‚«ãƒ¼ã‚½ãƒ«ã®åˆã‚ã‹ã‚‰çµ‚äº†ã¾ã§ã®ToDoãƒªã‚¹ãƒˆã‚’å–å¾—ã™ã‚‹ã€‚
+		//while(cursor)ã«ã—ãªã„ã®ã¯æœ€åˆã®ãƒ¬ã‚³ãƒ¼ãƒ‰ã‚’ç„¡è¦–ã•ã‚Œãªã„ã‚ˆã†ã«ã™ã‚‹ãŸã‚
+		//TODO do whileã«ç›´ã™
 		boolean isNext = cursor.moveToFirst();
 		while(isNext){
 			Map<String, String> map = new HashMap<String, String>(); 
@@ -67,13 +68,14 @@ public class ToDoListActivity extends ListActivity {
 				new int[] { android.R.id.text1, android.R.id.text2 });
 		setListAdapter(adapter);
 		
+		
 		/**
-		 * TODO ‚±‚±‚©‚çæ‚Ìˆ—‚ª•s–¾BAPI‚İ‚Æ‚­
-		 * ‚â‚è‚½‚¢‚±‚Æ‚ÍList•\¦‚ÅƒNƒŠƒbƒN‚³‚ê‚½ƒAƒCƒeƒ€‚ğæ“¾‚·‚éB
-		 * ‚»‚µ‚Ä‘JˆÚ‚³‚¹‚éBŒy‚­Œ©‚é‚©‚¬‚èƒAƒCƒeƒ€©‘Ì‚Éˆ—‚ğ“ü‚ê‚Ä‚¢‚éB
+		 * TODO ã“ã“ã‹ã‚‰å…ˆã®å‡¦ç†ãŒä¸æ˜ã€‚APIã¿ã¨ã
+		 * ã‚„ã‚ŠãŸã„ã“ã¨ã¯Listè¡¨ç¤ºã§ã‚¯ãƒªãƒƒã‚¯ã•ã‚ŒãŸã‚¢ã‚¤ãƒ†ãƒ ã‚’å–å¾—ã™ã‚‹ã€‚
+		 * ãã—ã¦é·ç§»ã•ã›ã‚‹ã€‚è»½ãè¦‹ã‚‹ã‹ãã‚Šã‚¢ã‚¤ãƒ†ãƒ è‡ªä½“ã«å‡¦ç†ã‚’å…¥ã‚Œã¦ã„ã‚‹ã€‚
 		 */
 		
-		//ƒAƒCƒeƒ€ƒŠƒXƒi[
+		//ãƒªã‚¹ãƒŠãƒ¼ç™»éŒ²
 		getListView().setOnItemClickListener(
 			new AdapterView.OnItemClickListener(){
 

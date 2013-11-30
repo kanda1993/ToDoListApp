@@ -11,7 +11,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 /**
- * ToDoÚ×‰æ–Ê
+ * ToDoè©³ç´°
  * @author y.kanda
  */
 public class ToDoDetailsActivity extends Activity {
@@ -20,37 +20,37 @@ public class ToDoDetailsActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		
-		//ToDoÚ×‚Ìview‚ğƒZƒbƒg
+		//ToDoè©³ç´°ã®viewã‚’ã‚»ãƒƒãƒˆ
 		setContentView(R.layout.activity_todo_details);
 		
-		//‰æ–Ê‚ÉƒZƒbƒg‚·‚é•¶š—ñ‚ğˆêŠi”[‚·‚é—p
+		//ç”»é¢ã«ã‚»ãƒƒãƒˆã™ã‚‹æ–‡å­—åˆ—ã‚’ä¸€æ™‚æ ¼ç´ã™ã‚‹ç”¨
 		String todoTitleStr = "";
 		String todoContentStr = "";
 		String limitDateStr = "";
 		String progressStr = "";
 		
-		//‰æ–ÊƒIƒuƒWƒFƒNƒg(?)æ“¾
+		//ç”»é¢ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ(?)å–å¾—
 		TextView todoTitle = (TextView) findViewById(R.id.todo_details);
 		TextView todoContent = (TextView) findViewById(R.id.todo_content_details);
 		TextView limitDate = (TextView) findViewById(R.id.limit_date_details);
 		TextView progress = (TextView) findViewById(R.id.progress_details);
 		
-		//Ú×‚ğ•\¦‚·‚éToDo‚ÌID‚ğæ“¾‚·‚éB(ˆê——‰æ–Ê‚Å‘I‘ğ‚µ‚½ToDo)
+		//è©³ç´°ã‚’è¡¨ç¤ºã™ã‚‹ToDoã®IDã‚’å–å¾—ã™ã‚‹ã€‚(ä¸€è¦§ç”»é¢ã§é¸æŠã—ãŸToDo)
 		Intent intent = getIntent();
 		String[] todo_id = { intent.getStringExtra(DataBaseConfig.CLM_TODO_ID) };
 		
-		//ƒf[ƒ^ƒx[ƒX‚ÉƒAƒNƒZƒX‚µ‚½‚¢‚Ì‚ÅƒI[ƒvƒ“
+		//ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã«ã‚¢ã‚¯ã‚»ã‚¹ã—ãŸã„ã®ã§ã‚ªãƒ¼ãƒ—ãƒ³
 		DataBaseOpenHelper dbHelper = new DataBaseOpenHelper(this);
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
-		//ToDoSELECTÚ×Œ‹‰ÊŠi”[
+		 //ToDoSELECTè©³ç´°çµæœæ ¼ç´
 		Cursor cursor = null;
 		
 		try{
-			//List‚©‚ç‘I‘ğ‚µ‚½ToDo–¾×‚ğid‚ğŒ³‚Éˆø‚Á’£‚Á‚Ä‚­‚é
+			//Listã‹ã‚‰é¸æŠã—ãŸToDoæ˜ç´°ã‚’idã‚’å…ƒã«å¼•ã£å¼µã£ã¦ãã‚‹
 			cursor = db.rawQuery(DataBaseConfig.SQL_SELECT_DETAILS , todo_id);
 			cursor.moveToFirst();
 			
-			//‘I‘ğŒ‹‰Êget
+			//é¸æŠçµæœget
 			todoTitleStr = cursor.getString(2);
 			todoContentStr = cursor.getString(3);
 			limitDateStr = cursor.getString(5);
@@ -58,16 +58,16 @@ public class ToDoDetailsActivity extends Activity {
 			
 		}
 		catch(SQLException e){
-			todoTitleStr = "AppErrorI";
+			todoTitleStr = "AppError";
 			todoContentStr = e.getMessage();
 		}
 		finally{
-			//’†“r”¼’[‚Éè—L‚³‚ê‚Ä‚¢‚é‚Æ–Ê“|‚È‚Ì‚Åclose
+			//ä¸­é€”åŠç«¯ã«å æœ‰ã•ã‚Œã¦ã„ã‚‹ã¨é¢å€’ãªã®ã§close
 			db.close();
 			
 			try {
 				if (cursor != null){
-					//ƒƒ‚ƒŠ‚ğˆ³”—‚·‚éˆ×A•K‚¸close
+					//ãƒ¡ãƒ¢ãƒªåœ§è¿«é˜²æ­¢
 					cursor.close();
 				}
 			}
@@ -76,7 +76,7 @@ public class ToDoDetailsActivity extends Activity {
 			}
 		}
 		
-		//‰æ–Ê‚É’l“n‚µ
+		//ç”»é¢ã«å€¤æ¸¡ã—
 		todoTitle.setText(todoTitleStr);
 		todoContent.setText(todoContentStr);
 		limitDate.setText(limitDateStr);

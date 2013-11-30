@@ -9,35 +9,35 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 /**
- * ƒf[ƒ^ƒx[ƒX‚ğg—p‚·‚éÛ‚Ì•Ö—˜ƒNƒ‰ƒX
+ * ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã‚’ä½¿ç”¨ã™ã‚‹éš›ã®ä¾¿åˆ©ã‚¯ãƒ©ã‚¹
  * @author y.kanda
  */
 public class DataBaseUtil {
 	
 	/**
-	 * ƒf[ƒ^ƒx[ƒXƒI[ƒvƒ“ASQLÀsAƒf[ƒ^ƒx[ƒXƒNƒ[ƒY‚ğÀs‚·‚éB
-	 * TODO ‹t‚Ég‚¢Ÿè‚ªˆ«‚¢‹C‚ª‚·‚é‚Ì‚Å•ú’u
-	 * @param context@Œ»İg—p‚µ‚Ä‚¢‚éActivity
-	 * @param sql@ÀsSQL
-	 * @param sqlParam sql‚É“®“I‚É‘g‚İ‚Şƒpƒ‰ƒ[ƒ^[
-	 * @param errorMsg@Às‚É–â‘è‚ª”­¶‚µ‚½‚ÉƒƒbƒZ[ƒWŠi”[(ÀsŒ³‚Å“Ç‚İæ‚è‰Â)
-	 * @return ÀsŒ‹‰Ê
+	 * ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã‚ªãƒ¼ãƒ—ãƒ³ã€SQLå®Ÿè¡Œã€ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã‚¯ãƒ­ãƒ¼ã‚ºã‚’å®Ÿè¡Œã™ã‚‹ã€‚
+	 * TODO é€†ã«ä½¿ã„å‹æ‰‹ãŒæ‚ªã„æ°—ãŒã™ã‚‹ã®ã§æ”¾ç½®
+	 * @param contextã€€ç¾åœ¨ä½¿ç”¨ã—ã¦ã„ã‚‹Activity
+	 * @param sqlã€€å®Ÿè¡ŒSQL
+	 * @param sqlParam sqlã«å‹•çš„ã«çµ„ã¿è¾¼ã‚€ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼
+	 * @param errorMsgã€€å®Ÿè¡Œæ™‚ã«å•é¡ŒãŒç™ºç”Ÿã—ãŸæ™‚ã«ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸æ ¼ç´(å®Ÿè¡Œå…ƒã§èª­ã¿å–ã‚Šå¯)
+	 * @return å®Ÿè¡Œçµæœ
 	 */
 	public static Cursor rawQuery (Context context,String sql,String[] sqlParam,String errorMsg){
-		//ÀsŒ‹‰Ê‚ğŠi”[
+		//ã‚¯ã‚¨ãƒªå®Ÿè¡Œçµæœæ ¼ç´
 		Cursor cursor = null;
 		
-		//ƒf[ƒ^ƒx[ƒX‚ÉƒAƒNƒZƒX‚µ‚½‚¢‚Ì‚ÅƒI[ƒvƒ“
+		//ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã‚ªãƒ¼ãƒ—ãƒ³
 		DataBaseOpenHelper dbHelper = new DataBaseOpenHelper(context);
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
 		
 		try{
-			//SQL‚ğÀs
+			//SQLå®Ÿè¡Œ
 			cursor = db.rawQuery(sql , sqlParam);
 			cursor.moveToFirst();
 		}
 		catch(SQLException e){
-			//ÀsŒ³‚ÅƒGƒ‰[ƒƒbƒZ[ƒW‚ğæ“¾‰Â”\‚É‚·‚éˆ×
+			 //å®Ÿè¡Œå…ƒã§ã‚¨ãƒ©ãƒ¼ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’å–å¾—å¯èƒ½ã«ã™ã‚‹ç‚º
 			errorMsg = e.getMessage();
 		}
 		finally{
@@ -48,18 +48,17 @@ public class DataBaseUtil {
 	}
 	
 	/**
-	 * Œ»İ“ú‚ğSQlite—p‚ÉStringŒ^‚Åæ“¾‚·‚éB
-	 * @param date •ÏŠ·‚µ‚½‚¢Date
+	 * ç¾åœ¨æ—¥æ™‚ã‚’SQliteç”¨ã«Stringå‹ã§å–å¾—ã™ã‚‹ã€‚
 	 * @return yyyy-MM-DD (String)
 	 */
 	public static String getNowDateToString(){
 		
 		Date date = new Date();
 		
-		//SQLite‚ÌDateƒtƒH[ƒ}ƒbƒg
+		//SQLiteã§æ—¥ä»˜ã‚’æ‰±ã†ãŸã‚ã®ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ
 		SimpleDateFormat formatForSqliteDate = new SimpleDateFormat("yyyy-MM-DD");
 		
-		//Œ»İ“ú‚ğSQLite—p‚ÌƒtƒH[ƒ}ƒbƒg
+		//ç¾åœ¨æ—¥æ™‚ã‚’æ–‡å­—åˆ—ã§è¿”å´
 		return formatForSqliteDate.format(date);
 	}
 	

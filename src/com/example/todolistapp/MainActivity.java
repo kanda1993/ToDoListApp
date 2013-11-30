@@ -7,39 +7,39 @@ import android.view.Menu;
 import android.view.View;
 
 /**
- * ƒƒCƒ“ƒƒjƒ…[‚ÌActivity
- * ƒƒjƒ…[
- * ToDoƒŠƒXƒg‚Ö‘JˆÚ
- * V‹KToDoƒŠƒXƒgì¬‚Ö‘JˆÚ
- * Š®—¹ToDoƒŠƒXƒg‚Ö‘JˆÚ
- * AppI—¹ƒ{ƒ^ƒ“
+ * ãƒ¡ã‚¤ãƒ³ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã®Activity
+ * ãƒ¡ãƒ‹ãƒ¥ãƒ¼
+ * ToDoãƒªã‚¹ãƒˆã¸é·ç§»
+ * æ–°è¦ToDoãƒªã‚¹ãƒˆä½œæˆã¸é·ç§»
+ * å®Œäº†ToDoãƒªã‚¹ãƒˆã¸é·ç§»
+ * Appçµ‚äº†ãƒœã‚¿ãƒ³
  * @author y.kanda
  */
 public class MainActivity extends Activity {
 	
 	/**
-	 * ‰Šú•\¦
+	 * åˆæœŸè¡¨ç¤º
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		//ƒƒCƒ“ƒƒjƒ…[‚Ìview‚ğƒZƒbƒg
+		//ãƒ¡ã‚¤ãƒ³ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã®viewã‚’ã‚»ãƒƒãƒˆ
 		setContentView(R.layout.activity_main);
 	}
 	
 	/**
-	 * appI—¹‚Ìˆ—(‰æ–ÊŠO‚©‚çI—¹‚³‚ê‚½—p)
+	 * appçµ‚äº†æ™‚ã®å‡¦ç†(ç”»é¢å¤–ã‹ã‚‰çµ‚äº†ã•ã‚ŒãŸæ™‚ç”¨)
 	 */
 	@Override
 	public void onDestroy(){
 		super.onDestroy();
 	}
 	
-	// -----------ˆÈ~ƒ{ƒ^ƒ“Às‚Ìˆ—------------
+	// -----------ä»¥é™ãƒœã‚¿ãƒ³å®Ÿè¡Œæ™‚ã®å‡¦ç†------------
 	
 	/**
-	 * ToDoƒŠƒXƒgƒ{ƒ^ƒ“Às‚Ìˆ—
-	 * ToDoList‰æ–Ê‚Ö‘JˆÚB
+	 * ToDoãƒªã‚¹ãƒˆãƒœã‚¿ãƒ³å®Ÿè¡Œæ™‚ã®å‡¦ç†
+	 * ToDoListç”»é¢ã¸é·ç§»ã€‚
 	 * @param target
 	 */
 	public void todoListButtonClick(View target){
@@ -48,8 +48,8 @@ public class MainActivity extends Activity {
 	}
 	
 	/**
-	 * ToDoV‹Kì¬ƒ{ƒ^ƒ“Às‚Ìˆ—
-	 * ToDoV‹Kì¬‰æ–Ê‚Ö‘JˆÚB
+	 * ToDoæ–°è¦ä½œæˆãƒœã‚¿ãƒ³å®Ÿè¡Œæ™‚ã®å‡¦ç†
+	 * ToDoæ–°è¦ä½œæˆç”»é¢ã¸é·ç§»ã€‚
 	 * @param target
 	 */
 	public void createToDoButtonClick(View target){
@@ -58,8 +58,8 @@ public class MainActivity extends Activity {
 	}
 	
 	/**
-	 * I—¹ƒ{ƒ^ƒ“Às‚Ìˆ—
-	 * ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚ğI—¹‚³‚¹‚éB
+	 * çµ‚äº†ãƒœã‚¿ãƒ³å®Ÿè¡Œæ™‚ã®å‡¦ç†
+	 * ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã‚’çµ‚äº†ã•ã›ã‚‹ã€‚
 	 */
 	public void exitButtonClick(View target){
 		finish();

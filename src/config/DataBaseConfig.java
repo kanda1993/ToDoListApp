@@ -1,75 +1,75 @@
 package config;
 
 /**
- * ƒf[ƒ^ƒx[ƒX‚Ìİ’è’l
- * ƒo[ƒWƒ‡ƒ“
- * ƒe[ƒuƒ‹–¼‚È‚Ç‚È‚ÇBBBB
+ * ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã®è¨­å®šå€¤
+ * ãƒãƒ¼ã‚¸ãƒ§ãƒ³
+ * ãƒ†ãƒ¼ãƒ–ãƒ«åãªã©ãªã©ã€‚ã€‚ã€‚ã€‚
  * @author y.kanda
  */
 public class DataBaseConfig {
-	/**
-	 * DataBase‚Ìversion
-	 */
+    /**
+     * DataBaseã®version
+     */
 	final public static int DB_VERSION = 1;
 	
-	/**
-	 * DataBase‚Ì–¼Ì
-	 */
+    /**
+     * DataBaseã®åç§°
+     */
 	final public static String DB_NAME = "ToDoAppDB";
 	
 	/* 
 	 * -------------------------------------------------------------
-	 *   ƒe[ƒuƒ‹–¼
+	 *   ãƒ†ãƒ¼ãƒ–ãƒ«å
 	 * -------------------------------------------------------------
 	 */
 	
 	/**
-	 * ToDoƒe[ƒuƒ‹–¼
+	 * ToDoãƒ†ãƒ¼ãƒ–ãƒ«å
 	 */
 	final public static String TODO_TABLE = "todo_table";
 	
-	/**
-	 * ToDoƒe[ƒuƒ‹–¼
-	 */
+    /**
+     * PJãƒ†ãƒ¼ãƒ–ãƒ«å
+     */
 	final public static String PJ_TABLE = "pj_table";
 	
 	/* 
 	 * -------------------------------------------------------------
-	 *   ƒJƒ‰ƒ€–¼Ì
+	 *   ã‚«ãƒ©ãƒ åç§°
 	 * -------------------------------------------------------------
 	 */
 	
-	/** todo‚²‚Æ‚Ìƒ†ƒj[ƒNID */
+	/** todoã”ã¨ã®ãƒ¦ãƒ‹ãƒ¼ã‚¯ID */
 	final public static String CLM_TODO_ID = "todo_id";
-	/** pj‚²‚Æ‚Ìƒ†ƒj[ƒNID */
+	/** pjã”ã¨ã®ãƒ¦ãƒ‹ãƒ¼ã‚¯ID */
 	final public static String CLM_PJ_CODE = "pj_code";
 	
-	/** todoƒ^ƒCƒgƒ‹ */
+	/** todoã‚¿ã‚¤ãƒˆãƒ« */
 	final public static String CLM_TODO_TITLE = "todo_title";
-	/** todo“à—e */
+	/** todoå†…å®¹ */
 	final public static String CLM_TODO = "todo";
-	/** i’» */
+	/** é€²æ— */
 	final public static String CLM_PROGRESS = "progress";
-	/** ŠúŒÀ */
+	/** æœŸé™ */
 	final public static String CLM_LIMIT_DATE = "limit_date";
-	/** ì¬“ú */
+	/** ä½œæˆæ—¥ */
 	final public static String CLM_CREATE_DATE = "create_date";
-	/** Š®—¹“ú */
+	/** å®Œäº†æ—¥ */
 	final public static String CLM_COMPLETE_DATE = "complete_date";
 	
-	/** pj–¼Ì */
+	/** pjåç§° */
 	final public static String CLM_PJ_NAME = "pj_name";
 	
-	/** pj ˜_—íœ‹æ•ª 0:—LŒø 1:–³Œø */
+	/** pj è«–ç†å‰Šé™¤åŒºåˆ† 0:æœ‰åŠ¹ 1:ç„¡åŠ¹ */
 	final public static String CLM_PJ_STOP = "pj_stop_flg";
 	
 	/* 
 	 * -------------------------------------------------------------
-	 *   SQL‰ŠúÀsŒn
+	 *    SQLåˆæœŸå®Ÿè¡Œç³»
 	 * -------------------------------------------------------------
 	 */
 	
-	/** TODOƒe[ƒuƒ‹ì¬ */
+	/** TODOãƒ†ãƒ¼ãƒ–ãƒ«ä½œæˆ */
 	final public static String SQL_CREATE_TABLE_TODO =
 									 " CREATE TABLE " + TODO_TABLE + " ( "
 								   +  	 CLM_TODO_ID 		 +  " integer,"
@@ -82,7 +82,7 @@ public class DataBaseConfig {
 							   	   +  	 CLM_COMPLETE_DATE   +  " text"
 							   	   + " );";
 	
-	/** PJƒ}ƒXƒ^ƒe[ƒuƒ‹ì¬ */
+	/** PJãƒã‚¹ã‚¿ãƒ†ãƒ¼ãƒ–ãƒ«ä½œæˆ */
 	final public static String SQL_CREATE_TABLE_PJ =
 									 " CREATE TABLE " + PJ_TABLE + " ( "
 								   +  	 CLM_PJ_CODE 		 +  " integer,"
@@ -96,7 +96,7 @@ public class DataBaseConfig {
 	 * -------------------------------------------------------------
 	 */
 	
-	/** TODOƒe[ƒuƒ‹ŒŸõ TODO’P•i‚ğæ“¾‚·‚éB ?:todo_id  */
+	/** TODOãƒ†ãƒ¼ãƒ–ãƒ«æ¤œç´¢ TODOå˜å“ã‚’å–å¾—ã™ã‚‹ã€‚ ?:todo_id  */
 	final public static String SQL_SELECT_DETAILS =
 									 "SELECT " 	    +
 									 "	*"  	    +
@@ -105,7 +105,7 @@ public class DataBaseConfig {
 									 " WHERE "      +
 									 "	todo_id = ?";
 	
-	/** Œ»“_‚ÅÅ‘å‚Ìtodo_id‚ğæ“¾‚·‚éB */
+	/** ç¾æ™‚ç‚¹ã§æœ€å¤§ã®todo_idã‚’å–å¾—ã™ã‚‹ã€‚ */
 	final public static String SQL_SELECT_MAX_TODO_ID = "SELECT MAX(todo_id) FROM todo_table";
 	
 	

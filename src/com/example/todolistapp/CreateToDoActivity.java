@@ -18,50 +18,47 @@ import android.widget.EditText;
 import config.DataBaseConfig;
 
 /**
- * TODOì¬‰æ–Ê—p
+ * TODOä½œæˆç”»é¢ç”¨
  * @author y.kanda
  */
 public class CreateToDoActivity extends Activity {
 	
-	//i’»(progress‰Šú’l)
+	//é€²æ—(progressåˆæœŸå€¤)
 	private final int ZERO_PERCENT = 0;
 	
 	/**
-	 * ‰æ–Ê•\¦
+	 * ç”»é¢è¡¨ç¤º
 	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
-		//TODOì¬‰æ–Ê‚ğ•\¦
+		//TODOä½œæˆç”»é¢ã‚’è¡¨ç¤º
 		setContentView(R.layout.activity_create_todo);
 	}
 	
 	/**
-	 * ToDoV‹Kì¬ƒ{ƒ^ƒ“Às
+	 * ToDoæ–°è¦ä½œæˆãƒœã‚¿ãƒ³å®Ÿè¡Œ
 	 * @param target
 	 */
 	public void createToDoButtonClick(View target){
-		//Œ‹‰Ê•\¦ƒ_ƒCƒAƒƒO—p‚Éæ“¾
-		Resources res = getResources();
-		String dialogTitle = "";
-		String dialogMsg = "";
-		//Œ‹‰Ê•\¦ƒ_ƒCƒAƒƒO“à—eØ‚è‘Ö‚¦—p
-		Boolean successCreate = false;
+
+		//çµæœè¡¨ç¤ºãƒ€ã‚¤ã‚¢ãƒ­ã‚°å†…å®¹åˆ‡ã‚Šæ›¿ãˆç”¨
+		Boolean successCreateFlg = false;
 		
-		//‰æ–Ê‚©‚ç“ü—Í’l‚ğæ“¾
+		//ç”»é¢ã‹ã‚‰å…¥åŠ›å€¤ã‚’å–å¾—
 		String todoTitle = ConvertEditTextToString(R.id.todo);
 		String todo = ConvertEditTextToString(R.id.todo_content);
 		String limitDate = ConvertDatePickerToString(R.id.limit_date);
 		
-		//ƒf[ƒ^ƒx[ƒX‚ÉƒAƒNƒZƒX‚µ‚½‚¢‚Ì‚ÅƒI[ƒvƒ“
+		//ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã«ã‚¢ã‚¯ã‚»ã‚¹ã—ãŸã„ã®ã§ã‚ªãƒ¼ãƒ—ãƒ³
 		DataBaseOpenHelper dbHelper = new DataBaseOpenHelper(this);
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
 		
-		//insertƒf[ƒ^‚Ìì¬
+		//insertãƒ‡ãƒ¼ã‚¿ã®ä½œæˆ
 		ContentValues values = new ContentValues();
-		//V‹KToDoId‚ğU”Ô
+		//æ–°è¦ToDoIdã‚’æŒ¯ç•ª
 		values.put(DataBaseConfig.CLM_TODO_ID, createToDoId(db));
-		//TODO PJƒ}ƒXƒ^‚ğ–¢À‘•‚Èˆ×A‹­§“I‚É0‚É‚µ‚Ä‚¢‚éB0‚Í–¢•ª—Ş‚É‚·‚éB
+		//TODO PJãƒã‚¹ã‚¿ã‚’æœªå®Ÿè£…ãªç‚ºã€å¼·åˆ¶çš„ã«0ã«ã—ã¦ã„ã‚‹ã€‚0ã¯æœªåˆ†é¡ã«ã™ã‚‹ã€‚
 		values.put(DataBaseConfig.CLM_PJ_CODE, 0);
 		values.put(DataBaseConfig.CLM_TODO_TITLE, todoTitle);
 		values.put(DataBaseConfig.CLM_TODO, todo);
@@ -70,37 +67,25 @@ public class CreateToDoActivity extends Activity {
 		values.put(DataBaseConfig.CLM_CREATE_DATE,DataBaseUtil.getNowDateToString() );
 		
 		try{
-			//ToDo—e‚ğƒCƒ“ƒT[ƒg
+			//ToDoå®¹ã‚’ã‚¤ãƒ³ã‚µãƒ¼ãƒˆ
 			db.insert(DataBaseConfig.TODO_TABLE, null, values);
-			successCreate = true;
+			successCreateFlg = true;
 		}
 		catch(SQLException e){
-			//‰Šú’l‚ª¸”s‚È‚Ì‚Å•K—v‚È‚¢‚ª–¾¦“I‚É‚·‚éˆ×B
-			successCreate = false;
+			//åˆæœŸå€¤ãŒå¤±æ•—ãªã®ã§å¿…è¦ãªã„ãŒæ˜ç¤ºçš„ã«ã™ã‚‹ç‚ºã€‚
+			successCreateFlg = false;
 		}
 		finally{
 			db.close();
 		}
 		
-		//ì¬Œ‹‰Ê•\¦ƒ_ƒCƒAƒƒO‚ÌØ‚è‘Ö‚¦i•\¦“à—eæ“¾j
-		if(successCreate){
-			//ì¬¬Œ÷
-			dialogTitle = res.getString(R.string.ok_title);
-			dialogMsg = res.getString(R.string.insert_ok_msg);
-		}
-		else{
-			//ì¬¸”s
-			dialogTitle = res.getString(R.string.ng_title);
-			dialogMsg = res.getString(R.string.insert_ng_msg);
-		}
-		//Š®—¹ƒƒbƒZ[ƒW‚Ì•\¦
-		AlertDialog resultMsg = createMesageDialog(dialogTitle,dialogMsg);
-		resultMsg.show();
+		//çµæœãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã®è¡¨ç¤º
+		showResultDialog(successCreateFlg);
 	}
 	
 	/**
-	 * ‰æ–Êã‚ÌEditText‚Ì’l‚ğString‚É•ÏŠ·‚µ‚Äæ“¾‚·‚éB
-	 * @param rId R.id.[‰æ–Êã‚ÌID]
+	 * ç”»é¢ä¸Šã®EditTextã®å€¤ã‚’Stringã«å¤‰æ›ã—ã¦å–å¾—ã™ã‚‹ã€‚
+	 * @param rId R.id.[ç”»é¢ä¸Šã®ID]
 	 */
 	public String ConvertEditTextToString(int rId){
 		EditText editText = (EditText)findViewById(rId);
@@ -108,26 +93,26 @@ public class CreateToDoActivity extends Activity {
 	}
 	
 	/**
-	 * ‰æ–Êã‚ÌDatePicker‚Ì’l‚ğString‚É•ÏŠ·‚µ‚Äæ“¾‚·‚éB
-	 * @param rId R.id.[‰æ–Êã‚ÌID]
-	 * @return@‰æ–Êã‚Ì“ú•t(String)
+	 * ç”»é¢ä¸Šã®DatePickerã®å€¤ã‚’Stringã«å¤‰æ›ã—ã¦å–å¾—ã™ã‚‹ã€‚
+	 * @param rId R.id.[ç”»é¢ä¸Šã®ID]
+	 * @returnã€€ç”»é¢ä¸Šã®æ—¥ä»˜(String)
 	 */
 	public String ConvertDatePickerToString(int rId){
-		//‰æ–Ê‚©‚çDatePicker‚ğæ“¾
+		//ç”»é¢ã‹ã‚‰DatePickerã‚’å–å¾—
 		DatePicker limitDatePicker = (DatePicker)findViewById(rId);
-		//‘I‘ğ‚µ‚½”NŒ“ú‚ğæ“¾AŒ‚ÉŠÖ‚µ‚Ä‚Í0ƒXƒ^[ƒg‚È‚Ì‚Å+1‚ğ‚µ‚Ä‚¢‚éB
+		//é¸æŠã—ãŸå¹´æœˆæ—¥ã‚’å–å¾—ã€æœˆã«é–¢ã—ã¦ã¯0ã‚¹ã‚¿ãƒ¼ãƒˆãªã®ã§+1ã‚’ã—ã¦ã„ã‚‹ã€‚
 		String limitDateY = String.valueOf(limitDatePicker.getYear());
 		String limitDateM = String.valueOf(limitDatePicker.getMonth() + 1);
 		String limitDateD = String.valueOf(limitDatePicker.getDayOfMonth());
-		//limitDate‚ğSQLite—p‚ÌSringFormat‚É‚·‚éB
+		//limitDateã‚’SQLiteç”¨ã®SringFormatã«ã™ã‚‹ã€‚
 		String limitDate = limitDateY + "-" + limitDateM + "-" + limitDateD;
 		return limitDate;
 	}
 	
 	/**
-	 * ToDoId‚ğ”­s‚·‚éB
+	 * ToDoIdã‚’ç™ºè¡Œã™ã‚‹ã€‚
 	 * @param db
-	 * @return V‹Ktodo_id
+	 * @return æ–°è¦todo_id
 	 */
 	public int createToDoId(SQLiteDatabase db){
 		
@@ -135,20 +120,20 @@ public class CreateToDoActivity extends Activity {
 		
 		Cursor cursor = null;
 		try{
-			//todo_id‚É‚ÍŒ»ó‚ÅÅ‘å‚Ìid‚ğŠ„‚è“–‚Ä‚é
+			//todo_idã«ã¯ç¾çŠ¶ã§æœ€å¤§ã®idã‚’å‰²ã‚Šå½“ã¦ã‚‹
 			cursor = db.rawQuery(DataBaseConfig.SQL_SELECT_MAX_TODO_ID,null);	
 			cursor.moveToFirst();
-			//TODO ‚ ‚Æ‚ÅNULL‘Îô(TODo–¢ì¬ó‘Ô)
+			//æœªç™»éŒ²ã®å ´åˆã¯0ãŒå–å¾—ã•ã‚Œã‚‹
 			todo_id = cursor.getInt(0);
 			todo_id += 1;
 		}
 		catch(SQLException e){
-			todo_id = 0;
+			//ç‰¹ã«å¿…è¦ãªã‹ã£ãŸï¼Ÿ
 		}
 		finally{
 			try {
 				if (cursor != null){
-					//ƒƒ‚ƒŠ‚ğˆ³”—‚·‚éˆ×A•K‚¸close
+					//ãƒ¡ãƒ¢ãƒªã‚’åœ§è¿«ã™ã‚‹ç‚ºã€å¿…ãšclose
 					cursor.close();
 				}
 			}
@@ -160,21 +145,45 @@ public class CreateToDoActivity extends Activity {
 		return todo_id;
 	}
 	
+	
+	public void showResultDialog(Boolean successCreateFlg){
+		
+		//çµæœè¡¨ç¤ºãƒ€ã‚¤ã‚¢ãƒ­ã‚°ç”¨ã«å–å¾—
+		Resources res = getResources();
+		String dialogTitle = "";
+		String dialogMsg = "";
+		
+		//ä½œæˆçµæœè¡¨ç¤ºãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã®åˆ‡ã‚Šæ›¿ãˆï¼ˆè¡¨ç¤ºå†…å®¹å–å¾—ï¼‰
+		if(successCreateFlg){
+			//ä½œæˆæˆåŠŸ
+			dialogTitle = res.getString(R.string.ok_title);
+			dialogMsg = res.getString(R.string.insert_ok_msg);
+		}
+		else{
+			//ä½œæˆå¤±æ•—
+			dialogTitle = res.getString(R.string.ng_title);
+			dialogMsg = res.getString(R.string.insert_ng_msg);
+		}
+		//å®Œäº†ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®è¡¨ç¤º
+		AlertDialog resultMsg = createMesageDialog(dialogTitle,dialogMsg);
+		resultMsg.show();
+	}
+	
 	/**
-	 * ƒ^ƒCƒgƒ‹AƒƒbƒZ[ƒWAOKƒ{ƒ^ƒ“‚ğ•\¦‚µ‚½ƒVƒ“ƒvƒ‹‚Èƒ_ƒCƒAƒƒO‚ğì¬‚·‚éB
+	 * ã‚¿ã‚¤ãƒˆãƒ«ã€ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã€OKãƒœã‚¿ãƒ³ã‚’è¡¨ç¤ºã—ãŸã‚·ãƒ³ãƒ—ãƒ«ãªãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã‚’ä½œæˆã™ã‚‹ã€‚
 	 * @param title
 	 * @param msg
-	 * @return ƒƒbƒZ[ƒW•\¦—pƒ_ƒCƒAƒƒO
+	 * @return ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸è¡¨ç¤ºç”¨ãƒ€ã‚¤ã‚¢ãƒ­ã‚°
 	 */
 	public AlertDialog createMesageDialog(String title,String msg){
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-		
+		//ã‚¿ã‚¤ãƒˆãƒ«ã€ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®è¨­å®š
 		alertDialogBuilder.setTitle(title);
 		alertDialogBuilder.setMessage(msg);
+		//ãƒ€ã‚¤ã‚¢ãƒ­ã‚°é–‰ã˜ã‚‹ç”¨
 		alertDialogBuilder.setPositiveButton("ok", null);
 		
-		//ƒAƒ‰[ƒgƒ_ƒCƒAƒƒO©‘Ì‚ğì¬‚·‚éB
+		//ã‚¢ãƒ©ãƒ¼ãƒˆãƒ€ã‚¤ã‚¢ãƒ­ã‚°è‡ªä½“ã‚’ä½œæˆã™ã‚‹ã€‚
 		return alertDialogBuilder.create();
-		
 	}
 }

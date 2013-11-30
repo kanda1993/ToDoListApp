@@ -6,50 +6,50 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
- * DataBase‚ÌOpenƒwƒ‹ƒp[
- * ƒf[ƒ^ƒx[ƒX‚ªì¬‚³‚ê‚Ä‚¢‚È‚¢‰Šú‚É‚ÍAƒI[ƒvƒ“‘O‚Éƒf[ƒ^ƒx[ƒX‚Ìì¬ˆ—‚ª‘–‚éB
+ * DataBaseã®Openãƒ˜ãƒ«ãƒ‘ãƒ¼
+ * ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ãŒä½œæˆã•ã‚Œã¦ã„ãªã„åˆæœŸæ™‚ã«ã¯ã€ã‚ªãƒ¼ãƒ—ãƒ³å‰ã«ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã®ä½œæˆå‡¦ç†ãŒèµ°ã‚‹ã€‚
  * @author y.kanda
  */
 public class DataBaseOpenHelper extends SQLiteOpenHelper {
-		
-	/* TODO ƒeƒXƒgƒf[ƒ^‚ğinsert‚·‚é—pSQL
-	 * ‚¢‚¿‚¢‚¿ƒf[ƒ^‚Â‚Á‚±‚Ş‚Ì‚ª–Ê“|‚È‚Ì‚Å */
+
+	/* TODO ãƒ†ã‚¹ãƒˆãƒ‡ãƒ¼ã‚¿ã‚’insertã™ã‚‹ç”¨SQL
+	 * ã„ã¡ã„ã¡ãƒ‡ãƒ¼ã‚¿ã¤ã£ã“ã‚€ã®ãŒé¢å€’ãªã®ã§ */
 	private String SqlTestInsert = " INSERT INTO todo_table(todo_id,pj_code,todo_title,todo,progress,limit_date,create_date,complete_date) VALUES("
-								 + "1,1,'ToDoƒ^ƒCƒgƒ‹','ToDo“à—e',50,'2013-11-11','2013-11-07','2013-11-15'); ";
+	                                                         + "1,1,'ToDoã‚¿ã‚¤ãƒˆãƒ«','ToDoå†…å®¹',50,'2013-11-11','2013-11-07','2013-11-15'); ";
 	private String SqlTestInsert2 = " INSERT INTO todo_table(todo_id,pj_code,todo_title,todo,progress,limit_date,create_date,complete_date) VALUES("
-			 + "2,2,'ToDoƒ^ƒCƒgƒ‹2','ToDo“à—e2',0,'2013-12-12','2013-12-07','2013-12-15'); ";
+	                 + "2,2,'ToDoã‚¿ã‚¤ãƒˆãƒ«2','ToDoå†…å®¹2',0,'2013-12-12','2013-12-07','2013-12-15'); ";
 	
 	/**
-	 * ’ÊíFƒI[ƒvƒ“ˆ—
-	 * ƒf[ƒ^ƒx[ƒX‚ª–¢ì¬‚Ìê‡(‰Šúˆ—)FonCreate
-	 * ƒf[ƒ^ƒx[ƒXvar‚ªŒÃ‚¢ê‡FonUpgrade
+	 * é€šå¸¸æ™‚ï¼šã‚ªãƒ¼ãƒ—ãƒ³å‡¦ç†
+	 * ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ãŒæœªä½œæˆã®å ´åˆ(åˆæœŸå‡¦ç†)ï¼šonCreate
+	 * ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹varãŒå¤ã„å ´åˆï¼šonUpgrade
 	 * @param context ActivityClass
 	 */
 	public DataBaseOpenHelper(Context context) {
-		super(context, DataBaseConfig.DB_NAME, null, DataBaseConfig.DB_VERSION);
+	        super(context, DataBaseConfig.DB_NAME, null, DataBaseConfig.DB_VERSION);
 	}
 	
 	/**
-	 * DB‰Šúì¬
+	 * DBåˆæœŸä½œæˆ
 	 */
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		// ToDoƒ}ƒXƒ^ì¬
-		db.execSQL(DataBaseConfig.SQL_CREATE_TABLE_TODO);
-		// PJƒ}ƒXƒ^ì¬
-		db.execSQL(DataBaseConfig.SQL_CREATE_TABLE_PJ);
-		
-		//TODO ƒeƒXƒgƒf[ƒ^insert
-		db.execSQL(SqlTestInsert);
-		db.execSQL(SqlTestInsert2);
+	        // ToDoãƒã‚¹ã‚¿ä½œæˆ
+	        db.execSQL(DataBaseConfig.SQL_CREATE_TABLE_TODO);
+	        // PJãƒã‚¹ã‚¿ä½œæˆ
+	        db.execSQL(DataBaseConfig.SQL_CREATE_TABLE_PJ);
+	
+	        //TODO ãƒ†ã‚¹ãƒˆãƒ‡ãƒ¼ã‚¿insert
+	        db.execSQL(SqlTestInsert);
+	        db.execSQL(SqlTestInsert2);
 	}
-
+	
 	@Override
 	public void onUpgrade(SQLiteDatabase arg0, int arg1, int arg2) {
-		/*
-		 * “Á‚É•ÏX‚Í‚È‚¢‚Ì‚Å–¢ˆ—B
-		 */
-		//ƒf[ƒ^ƒx[ƒX‚ª•¡”‰ñƒo[ƒWƒ‡ƒ“ƒAƒbƒv‚·‚éê‡‚ÍAif•ª‚Å‡”Ô‚Éƒo[ƒWƒ‡ƒ“ƒAƒbƒv‚·‚é‚±‚ÆB
+	        /*
+	         * ç‰¹ã«å¤‰æ›´ã¯ãªã„ã®ã§æœªå‡¦ç†ã€‚
+	         */
+	        //ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ãŒè¤‡æ•°å›ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã‚¢ãƒƒãƒ—ã™ã‚‹å ´åˆã¯ã€ifåˆ†ã§é †ç•ªã«ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã‚¢ãƒƒãƒ—ã™ã‚‹ã“ã¨ã€‚
 	}
 
 }
