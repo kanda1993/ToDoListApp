@@ -60,8 +60,12 @@ public final class R {
         public static final int createToDoButton=0x7f050004;
         public static final int exitButton=0x7f050007;
         public static final int hello_world=0x7f050002;
+        public static final int insert_ng_msg=0x7f05000f;
+        public static final int insert_ok_msg=0x7f05000e;
         public static final int limit_date_title=0x7f050009;
         public static final int mainMenu_title=0x7f050003;
+        public static final int ng_title=0x7f050011;
+        public static final int ok_title=0x7f050010;
         public static final int pjMainte_title=0x7f05000d;
         public static final int pj_title=0x7f05000c;
         public static final int progress_title=0x7f05000b;

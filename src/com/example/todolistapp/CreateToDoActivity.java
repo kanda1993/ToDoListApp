@@ -3,7 +3,11 @@ package com.example.todolistapp;
 import util.DataBaseOpenHelper;
 import util.DataBaseUtil;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -37,6 +41,12 @@ public class CreateToDoActivity extends Activity {
 	 * @param target
 	 */
 	public void createToDoButtonClick(View target){
+		//結果表示ダイアログ用に取得
+		Resources res = getResources();
+		String dialogTitle = "";
+		String dialogMsg = "";
+		//結果表示ダイアログ内容切り替え用
+		Boolean successCreate = false;
 		
 		//画面から入力値を取得
 		String todoTitle = ConvertEditTextToString(R.id.todo);
@@ -62,17 +72,30 @@ public class CreateToDoActivity extends Activity {
 		try{
 			//ToDo容をインサート
 			db.insert(DataBaseConfig.TODO_TABLE, null, values);
+			successCreate = true;
 		}
 		catch(SQLException e){
-			//TODO 完了画面が出来たら完了画面に遷移させる。
-			//errorメッセージを表示する。
-			return;
+			//初期値が失敗なので必要ないが明示的にする為。
+			successCreate = false;
 		}
 		finally{
 			db.close();
 		}
 		
-		//TODO 完了メッセージをダイアログで表示
+		//作成結果表示ダイアログの切り替え（表示内容取得）
+		if(successCreate){
+			//作成成功
+			dialogTitle = res.getString(R.string.ok_title);
+			dialogMsg = res.getString(R.string.insert_ok_msg);
+		}
+		else{
+			//作成失敗
+			dialogTitle = res.getString(R.string.ng_title);
+			dialogMsg = res.getString(R.string.insert_ng_msg);
+		}
+		//完了メッセージの表示
+		AlertDialog resultMsg = createMesageDialog(dialogTitle,dialogMsg);
+		resultMsg.show();
 	}
 	
 	/**
@@ -123,7 +146,6 @@ public class CreateToDoActivity extends Activity {
 			todo_id = 0;
 		}
 		finally{
-			//中途半端に占有されていると面倒なのでclose
 			try {
 				if (cursor != null){
 					//メモリを圧迫する為、必ずclose
@@ -138,4 +160,21 @@ public class CreateToDoActivity extends Activity {
 		return todo_id;
 	}
 	
+	/**
+	 * タイトル、メッセージ、OKボタンを表示したシンプルなダイアログを作成する。
+	 * @param title
+	 * @param msg
+	 * @return メッセージ表示用ダイアログ
+	 */
+	public AlertDialog createMesageDialog(String title,String msg){
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+		
+		alertDialogBuilder.setTitle(title);
+		alertDialogBuilder.setMessage(msg);
+		alertDialogBuilder.setPositiveButton("ok", null);
+		
+		//アラートダイアログ自体を作成する。
+		return alertDialogBuilder.create();
+		
+	}
 }
