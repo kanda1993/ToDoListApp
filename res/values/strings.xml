@@ -14,5 +14,6 @@
     <string name="todo_content_title">内容</string>
     <string name="progress_title">進捗率</string>
     <string name="pj_title">プロジェクト名</string>
+    <string name="pjMainte_title">プロジェクト管理</string>
 
 </resources>

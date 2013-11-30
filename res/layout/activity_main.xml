@@ -32,7 +32,7 @@
         android:layout_alignLeft="@+id/button1"
         android:layout_below="@+id/button1"
         android:layout_marginTop="15dp"
-        android:text="@string/completeList_title" />
+        android:text="@string/pjMainte_title" />
 
     <Button
         android:id="@+id/button1"

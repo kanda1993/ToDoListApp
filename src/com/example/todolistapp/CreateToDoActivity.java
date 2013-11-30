@@ -32,6 +32,10 @@ public class CreateToDoActivity extends Activity {
 		setContentView(R.layout.activity_create_todo);
 	}
 	
+	/**
+	 * ToDo新規作成ボタン実行
+	 * @param target
+	 */
 	public void createToDoButtonClick(View target){
 		
 		//画面から入力値を取得
@@ -43,36 +47,10 @@ public class CreateToDoActivity extends Activity {
 		DataBaseOpenHelper dbHelper = new DataBaseOpenHelper(this);
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
 		
-		Cursor cursor = null;
-		int todo_id = 0;
-		try{
-			//todo_idには現状で最大のidを割り当てる
-			cursor = db.rawQuery(DataBaseConfig.SQL_SELECT_MAX_TODO_ID,null);	
-			cursor.moveToFirst();
-			//TODO あとでNULL対策(TODo未作成状態)
-			todo_id = cursor.getInt(0);
-			todo_id += 1;
-		}
-		catch(SQLException e){
-			//TODO 完了画面が出来たら完了画面に遷移させる。
-			//errorメッセージを表示する。
-			return;
-		}
-		finally{
-			//中途半端に占有されていると面倒なのでclose
-			try {
-				if (cursor != null){
-					//メモリを圧迫する為、必ずclose
-					cursor.close();
-				}
-			}
-			catch(SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		
+		//insertデータの作成
 		ContentValues values = new ContentValues();
-		values.put(DataBaseConfig.CLM_TODO_ID, todo_id);
+		//新規ToDoIdを振番
+		values.put(DataBaseConfig.CLM_TODO_ID, createToDoId(db));
 		//TODO PJマスタを未実装な為、強制的に0にしている。0は未分類にする。
 		values.put(DataBaseConfig.CLM_PJ_CODE, 0);
 		values.put(DataBaseConfig.CLM_TODO_TITLE, todoTitle);
@@ -93,9 +71,10 @@ public class CreateToDoActivity extends Activity {
 		finally{
 			db.close();
 		}
+		
+		//TODO 完了メッセージをダイアログで表示
 	}
 	
-	//TODO 後でUtilへ
 	/**
 	 * 画面上のEditTextの値をStringに変換して取得する。
 	 * @param rId R.id.[画面上のID]
@@ -120,6 +99,43 @@ public class CreateToDoActivity extends Activity {
 		//limitDateをSQLite用のSringFormatにする。
 		String limitDate = limitDateY + "-" + limitDateM + "-" + limitDateD;
 		return limitDate;
+	}
+	
+	/**
+	 * ToDoIdを発行する。
+	 * @param db
+	 * @return 新規todo_id
+	 */
+	public int createToDoId(SQLiteDatabase db){
+		
+		int todo_id = 0;
+		
+		Cursor cursor = null;
+		try{
+			//todo_idには現状で最大のidを割り当てる
+			cursor = db.rawQuery(DataBaseConfig.SQL_SELECT_MAX_TODO_ID,null);	
+			cursor.moveToFirst();
+			//TODO あとでNULL対策(TODo未作成状態)
+			todo_id = cursor.getInt(0);
+			todo_id += 1;
+		}
+		catch(SQLException e){
+			todo_id = 0;
+		}
+		finally{
+			//中途半端に占有されていると面倒なのでclose
+			try {
+				if (cursor != null){
+					//メモリを圧迫する為、必ずclose
+					cursor.close();
+				}
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return todo_id;
 	}
 	
 }

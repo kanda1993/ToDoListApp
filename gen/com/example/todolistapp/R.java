@@ -62,6 +62,7 @@ public final class R {
         public static final int hello_world=0x7f050002;
         public static final int limit_date_title=0x7f050009;
         public static final int mainMenu_title=0x7f050003;
+        public static final int pjMainte_title=0x7f05000d;
         public static final int pj_title=0x7f05000c;
         public static final int progress_title=0x7f05000b;
         public static final int todoList_title=0x7f050005;

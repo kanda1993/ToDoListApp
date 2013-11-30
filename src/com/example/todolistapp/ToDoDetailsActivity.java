@@ -20,17 +20,14 @@ public class ToDoDetailsActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		
+		//ToDo詳細のviewをセット
+		setContentView(R.layout.activity_todo_details);
+		
 		//画面にセットする文字列を一時格納する用
 		String todoTitleStr = "";
 		String todoContentStr = "";
 		String limitDateStr = "";
 		String progressStr = "";
-		
-		//ToDoSELECT詳細結果格納
-		Cursor cursor = null;
-		
-		//ToDo詳細のviewをセット
-		setContentView(R.layout.activity_todo_details);
 		
 		//画面オブジェクト(?)取得
 		TextView todoTitle = (TextView) findViewById(R.id.todo_details);
@@ -45,6 +42,8 @@ public class ToDoDetailsActivity extends Activity {
 		//データベースにアクセスしたいのでオープン
 		DataBaseOpenHelper dbHelper = new DataBaseOpenHelper(this);
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
+		//ToDoSELECT詳細結果格納
+		Cursor cursor = null;
 		
 		try{
 			//Listから選択したToDo明細をidを元に引っ張ってくる
