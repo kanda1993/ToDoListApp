@@ -36,6 +36,8 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		// ToDoマスタ作成
 		db.execSQL(DataBaseConfig.SQL_CREATE_TABLE_TODO);
+		// PJマスタ作成
+		db.execSQL(DataBaseConfig.SQL_CREATE_TABLE_PJ);
 		
 		//TODO テストデータinsert
 		db.execSQL(SqlTestInsert);
@@ -47,7 +49,7 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper {
 		/*
 		 * 特に変更はないので未処理。
 		 */
-		//データベースが複数回バージョンアップする場合は、if分で順番にバージョンアップすること。(Switchダメ)
+		//データベースが複数回バージョンアップする場合は、if分で順番にバージョンアップすること。
 	}
 
 }

@@ -42,12 +42,12 @@ public class ToDoDetailsActivity extends Activity {
 		Intent intent = getIntent();
 		String[] todo_id = { intent.getStringExtra(DataBaseConfig.CLM_TODO_ID) };
 		
+		//データベースにアクセスしたいのでオープン
+		DataBaseOpenHelper dbHelper = new DataBaseOpenHelper(this);
+		SQLiteDatabase db = dbHelper.getReadableDatabase();
+		
 		try{
-			//データベースにアクセスしたいのでオープン
-			DataBaseOpenHelper dbHelper = new DataBaseOpenHelper(this);
-			SQLiteDatabase db = dbHelper.getReadableDatabase();
-			
-			//Listから選択したToDoをidを元に引っ張ってくる
+			//Listから選択したToDo明細をidを元に引っ張ってくる
 			cursor = db.rawQuery(DataBaseConfig.SQL_SELECT_DETAILS , todo_id);
 			cursor.moveToFirst();
 			
@@ -63,6 +63,9 @@ public class ToDoDetailsActivity extends Activity {
 			todoContentStr = e.getMessage();
 		}
 		finally{
+			//中途半端に占有されていると面倒なのでclose
+			db.close();
+			
 			try {
 				if (cursor != null){
 					//メモリを圧迫する為、必ずclose

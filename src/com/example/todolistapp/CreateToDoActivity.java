@@ -1,12 +1,11 @@
 package com.example.todolistapp;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import util.DataBaseOpenHelper;
+import util.DataBaseUtil;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
@@ -24,7 +23,7 @@ public class CreateToDoActivity extends Activity {
 	private final int ZERO_PERCENT = 0;
 	
 	/**
-	 * onCreate
+	 * 画面表示
 	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState){
@@ -44,15 +43,33 @@ public class CreateToDoActivity extends Activity {
 		DataBaseOpenHelper dbHelper = new DataBaseOpenHelper(this);
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
 		
-		//todo_idには現状で最大のidを割り当てる
-		Cursor cursor = db.rawQuery(DataBaseConfig.SQL_SELECT_MAX_TODO_ID,null);	
-		cursor.moveToFirst();
-		int todo_id = cursor.getInt(0);
-		//TODO close必ず実行するようにする。
-		cursor.close();
-		//あとでNULL対策
-		todo_id += 1;
-
+		Cursor cursor = null;
+		int todo_id = 0;
+		try{
+			//todo_idには現状で最大のidを割り当てる
+			cursor = db.rawQuery(DataBaseConfig.SQL_SELECT_MAX_TODO_ID,null);	
+			cursor.moveToFirst();
+			//TODO あとでNULL対策(TODo未作成状態)
+			todo_id = cursor.getInt(0);
+			todo_id += 1;
+		}
+		catch(SQLException e){
+			//TODO 完了画面が出来たら完了画面に遷移させる。
+			//errorメッセージを表示する。
+			return;
+		}
+		finally{
+			//中途半端に占有されていると面倒なのでclose
+			try {
+				if (cursor != null){
+					//メモリを圧迫する為、必ずclose
+					cursor.close();
+				}
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
 		
 		ContentValues values = new ContentValues();
 		values.put(DataBaseConfig.CLM_TODO_ID, todo_id);
@@ -62,12 +79,20 @@ public class CreateToDoActivity extends Activity {
 		values.put(DataBaseConfig.CLM_TODO, todo);
 		values.put(DataBaseConfig.CLM_PROGRESS, ZERO_PERCENT);
 		values.put(DataBaseConfig.CLM_LIMIT_DATE, limitDate);
-		values.put(DataBaseConfig.CLM_CREATE_DATE, getNowDateToString());
+		values.put(DataBaseConfig.CLM_CREATE_DATE,DataBaseUtil.getNowDateToString() );
 		
-		//DB内容をインサート
-		db.insert(DataBaseConfig.TODO_TABLE, null, values);
-		
-		db.close();
+		try{
+			//ToDo容をインサート
+			db.insert(DataBaseConfig.TODO_TABLE, null, values);
+		}
+		catch(SQLException e){
+			//TODO 完了画面が出来たら完了画面に遷移させる。
+			//errorメッセージを表示する。
+			return;
+		}
+		finally{
+			db.close();
+		}
 	}
 	
 	//TODO 後でUtilへ
@@ -97,17 +122,4 @@ public class CreateToDoActivity extends Activity {
 		return limitDate;
 	}
 	
-	/**
-	 * 現在日時をSQlite用にString型で取得する。
-	 * @return yyyy-MM-DD (String)
-	 */
-	public String getNowDateToString(){
-				
-		Date nowDate = new Date();
-		//SQLiteのDateフォーマット
-		SimpleDateFormat formatForSqliteDate = new SimpleDateFormat("yyyy-MM-DD");
-		
-		//現在日時をSQLite用のフォーマット
-		return formatForSqliteDate.format(nowDate);
-	}
 }

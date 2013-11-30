@@ -28,17 +28,6 @@ public class MainActivity extends Activity {
 	}
 	
 	/**
-	 * オプションメニュー作成
-	 * TODO 未実装（重要度低い）：オプションメニューは廃れてきている為
-	 */
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-	
-	/**
 	 * app終了時の処理(画面外から終了された時用)
 	 */
 	@Override
