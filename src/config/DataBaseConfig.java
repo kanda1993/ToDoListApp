@@ -90,6 +90,16 @@ public class DataBaseConfig {
 								   +  	 CLM_PJ_STOP 		 +  " integer"
 							   	   + " );";
 	
+	/** その他用PJ作成 */
+	final public static String SQL_INSERT_ATHER_PJ =
+									 " INSERT INTO "
+									+ 		PJ_TABLE
+									+ "  VALUE ( "
+									+ "  	0,"
+									+ "  	'その他',"
+									+ "  	0"
+									+ "  )";
+	
 	/* 
 	 * -------------------------------------------------------------
 	 *   SQL
