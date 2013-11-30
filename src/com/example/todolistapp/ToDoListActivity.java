@@ -45,8 +45,7 @@ public class ToDoListActivity extends ListActivity {
 		//カーソルの初めから終了までのToDoリストを取得する。
 		//while(cursor)にしないのは最初のレコードを無視されないようにするため
 		//TODO do whileに直す
-		boolean isNext = cursor.moveToFirst();
-		while(isNext){
+		while (cursor.moveToNext()) {
 			Map<String, String> map = new HashMap<String, String>(); 
 			map.put(DataBaseConfig.CLM_TODO_ID, cursor.getString(0));
 			map.put(DataBaseConfig.CLM_PJ_CODE, cursor.getString(1));
@@ -56,7 +55,6 @@ public class ToDoListActivity extends ListActivity {
 			map.put(DataBaseConfig.CLM_LIMIT_DATE,cursor.getString(5));
 			
 			todoList.add(map);
-			isNext = cursor.moveToNext();
 		}
 		cursor.close();
 		
