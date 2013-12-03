@@ -15,8 +15,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 /**
@@ -27,20 +25,35 @@ public class ToDoListActivity extends ListActivity {
 	
 	private ArrayList<Map<String, String>> todoList;
 	
+	/**
+	 * ToDo一覧画面初期表示
+	 * ToDoテーブルから全ToDoを取得してリスト表示を行います。(暫定)
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		
-		//オープン
+		//ToDoリスト表示に必要な情報取得
+		String SqlToDoAllSelect = " SELECT "
+								+ " " + DataBaseConfig.CLM_TODO_ID + ","
+								+ " " + DataBaseConfig.CLM_PJ_CODE + ","
+								+ " " + DataBaseConfig.CLM_TODO_TITLE + ","
+								+ " " + DataBaseConfig.CLM_TODO + ","
+								+ " " + DataBaseConfig.CLM_PROGRESS + ","
+								+ " " + DataBaseConfig.CLM_LIMIT_DATE
+								+ " FROM"
+								+ 		DataBaseConfig.TODO_TABLE;
+		
+		//DBオープン
 		DataBaseOpenHelper dbHelper = new DataBaseOpenHelper(this);
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
-		
-		//ToDo全取得
-		String SqlToDoAllSelect = "SELECT * FROM todo_table";
+		//ToDo一覧の取得、以降使用しないのでDBクローズ
 		Cursor cursor = db.rawQuery(SqlToDoAllSelect, null);
+		db.close();
 		
-		 //ToDo情報を格納する
+		//ToDo情報を格納する
 		todoList = new ArrayList<Map<String, String>>(); 
+		
 		//取得ToDoの格納
 		while(cursor.moveToNext()){
 			Map<String, String> map = new HashMap<String, String>(); 
