@@ -41,7 +41,7 @@ public class ToDoListActivity extends ListActivity {
 								+ " " + DataBaseConfig.CLM_TODO + ","
 								+ " " + DataBaseConfig.CLM_PROGRESS + ","
 								+ " " + DataBaseConfig.CLM_LIMIT_DATE
-								+ " FROM"
+								+ " FROM "
 								+ 		DataBaseConfig.TODO_TABLE;
 		
 		//DBオープン
@@ -49,7 +49,6 @@ public class ToDoListActivity extends ListActivity {
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
 		//ToDo一覧の取得、以降使用しないのでDBクローズ
 		Cursor cursor = db.rawQuery(SqlToDoAllSelect, null);
-		db.close();
 		
 		//ToDo情報を格納する
 		todoList = new ArrayList<Map<String, String>>(); 
@@ -67,6 +66,7 @@ public class ToDoListActivity extends ListActivity {
 			todoList.add(map);
 		}
 		cursor.close();
+		db.close();
 		
 		SimpleAdapter adapter = new SimpleAdapter
 				(this,
