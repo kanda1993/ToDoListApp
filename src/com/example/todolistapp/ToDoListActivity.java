@@ -78,15 +78,22 @@ public class ToDoListActivity extends ListActivity {
 		
 		
 		/**
-		 * TODO ここから先の処理が不明。APIみとく
-		 * やりたいことはList表示でクリックされたアイテムを取得する。
-		 * そして遷移させる。軽く見るかぎりアイテム自体に処理を入れている。
+		 * リストアイテムに対してcallback処理を実装する。
+		 * List表示でクリックされたアイテムを取得する。
+		 * クリックしたToDo(アイテム)のIdをセットして、ToDo詳細画面へ遷移する。
 		 */
 		
 		//リスナー登録
 		getListView().setOnItemClickListener(
 			new AdapterView.OnItemClickListener(){
-
+				
+				/**
+				 * parent　このアイテムがどのViewからクリックされるか(?)
+				 * view 
+				 * position 表示上何番目か？
+				 * id rowId アイテムが何番目か(ユニークキー)
+				 * 
+				 */
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view, int position,long id) {
 					
