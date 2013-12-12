@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import config.DataBaseConfig;
+import data.TODO;
 
 import util.DataBaseOpenHelper;
 
@@ -53,17 +54,30 @@ public class ToDoListActivity extends ListActivity {
 		//ToDo情報を格納する
 		todoList = new ArrayList<Map<String, String>>(); 
 		
+		cursor.getColumnIndex(DataBaseConfig.CLM_TODO_ID);
+		cursor.getColumnIndex(DataBaseConfig.CLM_PJ_CODE);
+		cursor.getColumnIndex(DataBaseConfig.CLM_TODO_TITLE);
+		cursor.getColumnIndex(DataBaseConfig.CLM_TODO);
+		cursor.getColumnIndex(DataBaseConfig.CLM_PROGRESS);
+		cursor.getColumnIndex(DataBaseConfig.CLM_LIMIT_DATE);
+		
 		//取得ToDoの格納
 		while(cursor.moveToNext()){
-			Map<String, String> map = new HashMap<String, String>(); 
-			map.put(DataBaseConfig.CLM_TODO_ID, cursor.getString(0));
-			map.put(DataBaseConfig.CLM_PJ_CODE, cursor.getString(1));
-			map.put(DataBaseConfig.CLM_TODO_TITLE,cursor.getString(2));
-			map.put(DataBaseConfig.CLM_TODO,cursor.getString(3));
-			map.put(DataBaseConfig.CLM_PROGRESS,cursor.getString(4));
-			map.put(DataBaseConfig.CLM_LIMIT_DATE,cursor.getString(5));
+			//TODO テスト的に全ての情報を格納しているが実際は、todoIdとタイトル、期限だけで十分
+			//クエリ実行結果からカラム名を元に絡む番号を取得→番号元に実体を取得
+			/*
+			 * TODO 実行結果からカラム名を元に実体を取得出来るUtilを作るのが現実的な気がする。
+			 *      今のコードは長すぎるし読みにくい。
+			 */
+			TODO todo = new TODO();
+			todo.setTodoId(cursor.getInt(cursor.getColumnIndex(DataBaseConfig.CLM_TODO_ID)));
+			todo.setTodoPjCode(cursor.getString(cursor.getColumnIndex(DataBaseConfig.CLM_PJ_CODE)));
+			todo.setTodoTitle(cursor.getString(cursor.getColumnIndex(DataBaseConfig.CLM_TODO_TITLE)));
+			todo.setTodoContent(cursor.getString(cursor.getColumnIndex(DataBaseConfig.CLM_TODO)));
+			todo.setProgress(cursor.getInt(cursor.getColumnIndex(DataBaseConfig.CLM_PROGRESS)));
+			todo.setLimitDate(cursor.getString(cursor.getColumnIndex(DataBaseConfig.CLM_LIMIT_DATE)));
 			
-			todoList.add(map);
+			todoList.add(todo.convertToMap());
 		}
 		cursor.close();
 		db.close();

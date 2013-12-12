@@ -39,7 +39,7 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper {
 	        // PJマスタ作成
 	        db.execSQL(DataBaseConfig.SQL_CREATE_TABLE_PJ);
 	        //　PJその他の追加
-	        db.execSQL(DataBaseConfig.SQL_INSERT_ATHER_PJ);
+	        //db.execSQL(DataBaseConfig.SQL_INSERT_ATHER_PJ);
 	        
 	        //TODO テストデータinsert
 	        db.execSQL(SqlTestInsert);

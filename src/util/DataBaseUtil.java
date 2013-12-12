@@ -23,7 +23,7 @@ public class DataBaseUtil {
 	 * @param errorMsg　実行時に問題が発生した時にメッセージ格納(実行元で読み取り可)
 	 * @return 実行結果
 	 */
-	public static Cursor rawQuery (Context context,String sql,String[] sqlParam,String errorMsg){
+	public static Cursor rawQuery (Context context,String sql,String[] sqlParam){
 		//クエリ実行結果格納
 		Cursor cursor = null;
 		
@@ -37,8 +37,7 @@ public class DataBaseUtil {
 			cursor.moveToFirst();
 		}
 		catch(SQLException e){
-			 //実行元でエラーメッセージを取得可能にする為
-			errorMsg = e.getMessage();
+
 		}
 		finally{
 			db.close();
