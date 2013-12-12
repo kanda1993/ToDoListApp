@@ -54,14 +54,7 @@ public class ToDoListActivity extends ListActivity {
 		//ToDo情報を格納する
 		todoList = new ArrayList<Map<String, String>>(); 
 		
-		cursor.getColumnIndex(DataBaseConfig.CLM_TODO_ID);
-		cursor.getColumnIndex(DataBaseConfig.CLM_PJ_CODE);
-		cursor.getColumnIndex(DataBaseConfig.CLM_TODO_TITLE);
-		cursor.getColumnIndex(DataBaseConfig.CLM_TODO);
-		cursor.getColumnIndex(DataBaseConfig.CLM_PROGRESS);
-		cursor.getColumnIndex(DataBaseConfig.CLM_LIMIT_DATE);
-		
-		//取得ToDoの格納
+		//SimpleAdapterの仕様に合わせる為、実行結果格納、変換を行う
 		while(cursor.moveToNext()){
 			//TODO テスト的に全ての情報を格納しているが実際は、todoIdとタイトル、期限だけで十分
 			//クエリ実行結果からカラム名を元に絡む番号を取得→番号元に実体を取得
