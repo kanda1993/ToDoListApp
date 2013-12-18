@@ -8,6 +8,8 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
 /**
@@ -33,7 +35,32 @@ public class ToDoDetailsActivity extends Activity {
 		TextView todoTitle = (TextView) findViewById(R.id.todo_details);
 		TextView todoContent = (TextView) findViewById(R.id.todo_content_details);
 		TextView limitDate = (TextView) findViewById(R.id.limit_date_details);
-		TextView progress = (TextView) findViewById(R.id.progress_details);
+		final TextView progress = (TextView) findViewById(R.id.progress_details);
+		final SeekBar  progressSeek = (SeekBar) findViewById(R.id.progress_seekBar);
+		
+		progressSeek.setOnSeekBarChangeListener(
+					new OnSeekBarChangeListener() {
+						
+						//シークバーを掴んでいる間呼ばれる
+						@Override
+						public void onProgressChanged(SeekBar seekBar,int intProgress,boolean fromUser){
+							//表示上の進捗率を上げる
+							progress.setText(Integer.valueOf(progressSeek.getProgress()) + "%");
+						}
+						
+						//シークバーに触れた瞬間？
+						@Override
+						public void onStartTrackingTouch(SeekBar seekBar) {
+						}
+						
+						//シークバーを離した瞬間
+						@Override
+						public void onStopTrackingTouch(SeekBar seekBar) {
+							// TODO　DBにアップデートでもかける？
+						}
+					}
+						
+				);
 		
 		//詳細を表示するToDoのIDを取得する。(一覧画面で選択したToDo)
 		Intent intent = getIntent();
@@ -42,6 +69,7 @@ public class ToDoDetailsActivity extends Activity {
 		//データベースにアクセスしたいのでオープン
 		DataBaseOpenHelper dbHelper = new DataBaseOpenHelper(this);
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
+		
 		 //ToDoSELECT詳細結果格納
 		Cursor cursor = null;
 		
@@ -54,7 +82,8 @@ public class ToDoDetailsActivity extends Activity {
 			todoTitleStr = cursor.getString(2);
 			todoContentStr = cursor.getString(3);
 			limitDateStr = cursor.getString(5);
-			progressStr = cursor.getString(4);
+			progressStr = cursor.getString(4) + "%";
+			progressSeek.setProgress(cursor.getInt(cursor.getColumnIndex(DataBaseConfig.CLM_PROGRESS)));
 			
 		}
 		catch(SQLException e){

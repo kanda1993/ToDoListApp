@@ -67,7 +67,13 @@
             android:layout_height="wrap_content"
             android:text="0"
             android:textAppearance="?android:attr/textAppearanceLarge" />
-		
+
+        <SeekBar
+            android:id="@+id/progress_seekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="100" />
+        
         <!-- PJName -->
         
         <TextView

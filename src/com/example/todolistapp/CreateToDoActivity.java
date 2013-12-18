@@ -73,7 +73,7 @@ public class CreateToDoActivity extends Activity {
 			successCreateFlg = true;
 		}
 		catch(SQLException e){
-			//初期値が失敗なので必要ないが明示的にする為。
+			//初期値が失敗なので必要ない処理だが明示的にする為。
 			successCreateFlg = false;
 		}
 		finally{
